@@ -33,6 +33,28 @@ describe 'CD' do
       test_cd_three.save
       expect(CD.search("Swansong")).to eq test_cd_two
     end
+
+    it 'returns false if no match found' do
+      CD.clear
+      test_cd = CD.new({:title=> "Waiting for the Sun", :artist=> "The Doors"})
+      test_cd.save
+      test_cd_two = CD.new({:title=> "Swansong", :artist=> "Carcass"})
+      test_cd_two.save
+      expect(CD.search("Kanye West")).to eq nil
+    end
+  end
+
+  describe 'CD.list_by_artist' do
+    it 'lists all CDs by artists' do
+      CD.clear
+      test_cd = CD.new({:title=> "Waiting for the Sun", :artist=> "The Doors"})
+      test_cd.save
+      test_cd_two = CD.new({:title=> "Swansong", :artist=> "Carcass"})
+      test_cd_two.save
+      test_cd_three = CD.new({:title=> "L.A. Woman", :artist=> "The Doors"})
+      test_cd_three.save
+      expect(CD.list_by_artist("The Doors")).to eq [test_cd,test_cd_three]
+    end
   end
 
 end

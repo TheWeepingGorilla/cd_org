@@ -2,6 +2,7 @@ class CD
 
   attr_reader :title, :artist
   @@collection = []
+  @@cds_by_artist = []
 
   def initialize attributes
     @title = attributes[:title]
@@ -18,12 +19,22 @@ class CD
 
   def CD.search arg
     found_cd = nil
-    @@collection.each do |item|
-      if ((item.title == arg) || (item.artist == arg))
-        found_cd = item
+    @@collection.each do |cd|
+      if ((cd.title == arg) || (cd.artist == arg))
+        found_cd = cd
       end
     end
     found_cd
+  end
+
+  def CD.list_by_artist artist
+    @@cds_by_artist = []
+    CD.all.each do |cd|
+      if cd.artist == artist
+        @@cds_by_artist << cd
+      end
+    end
+    @@cds_by_artist
   end
 
 
