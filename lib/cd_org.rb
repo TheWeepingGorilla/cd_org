@@ -20,7 +20,7 @@ class CD
   def CD.search arg
     found_cd = nil
     @@collection.each do |cd|
-      if ((cd.title == arg) || (cd.artist == arg))
+      if cd.title == arg
         found_cd = cd
       end
     end
